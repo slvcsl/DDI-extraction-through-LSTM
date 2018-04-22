@@ -44,17 +44,17 @@ def read(dir_list):
 			data.append([sent_id, sent_text, pair_list])
 	return data
 
-tr_med = "/home/sunil/project/ddi/DDICorpus/Train/MedLine"
-tr_drug = "/home/sunil/project/ddi/DDICorpus/Train/DrugBank"
-te_med = "/home/sunil/project/ddi/DDICorpus/Test/MedLine"
-te_drug = "/home/sunil/project/ddi/DDICorpus/Test/DrugBank"
+tr_med = "../Data/Train/MedLine/"
+tr_drug = "../Data/Train/DrugBank/"
+te_med = "../Data/Test/Test for DDI Extraction task/MedLine/" # Not sure if this is the actual folder!
+te_drug = "../Data/Test/Test for DDI Extraction task/DrugBank/"
 
 def readData():
 	tr_data = read([tr_med, tr_drug])
 	te_data = read([te_med, te_drug])
 	
 #	
-	fw = open('dataset/train_data.txt','w')
+	fw = open('dataset/step1/train_data.txt','w')
 	for sid, stext, pair in tr_data:
 		if len(pair) == 0:
 			continue;

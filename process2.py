@@ -3,11 +3,28 @@ import copy
 from nltk import word_tokenize
 import re
 
+'''
+Remember: this file is a little bit buggy (actually, the previous one is). 
+It suppose the input file is composed of blocks (delimited by \n\n), containing 
+each sentence (in 1 line) + the parse (like drug present etc).
+The problem is actually some of the sentences are in 2 lines, so that the parsing 
+fails. These are the sentences that have a first part delimited by [] and the 
+"real" sentence in the following line.
+For the moment, I only removed the \n so that the parsing is ok.
+There are about 5 sentences with this problem. 
+Only look for "]" in the text file and fix the problem.
+Obvuiously the code (possibly of the previous script) should be modified to deal
+with this problem.
+'''
+
 #train = open('dataset/step1/train_data.txt', 'r')
 #train = open('dataset/step1/tmp.txt', 'r')
-train = open('dataset/step1/train_data.txt','r')
 
-fw = open('dataset/step2/train_data.txt','w')
+#train = open('dataset/step1/train_data.txt','r')
+train =  open('dataset/test_data.txt','r')
+
+#fw = open('dataset/step2/train_data.txt','w')
+fw = open('dataset/test_data2.txt','w')
 
 def preProcess(sent):
 	sent = sent.replace(',',' ,')
@@ -18,21 +35,22 @@ def preProcess(sent):
 	return sent
 
 count = 0
-for s in train.read().strip().split('\n\n'):
-	sent =  s.strip().split('\n')[0]	
-	pair = s.strip().split('\n')[1:]
-	sent = sent.split('\t')[1]
-	sent_ori = copy.copy(sent)
+for s in train.read().strip().split('\n\n'): #for each "block"
+    sent =  s.strip().split('\n')[0]	# The sentence
+    pair = s.strip().split('\n')[1:]
+    sent = sent.split('\t')[1]
+    sent_ori = copy.copy(sent)
+    
+    e_dict = []
+    for p in pair:
+        d1, d1_type, d1_spain, d2, d2_type, d2_spain, ddi = p.strip().split('\t')
 
-	e_dict = []
-	for p in pair:
-		d1, d1_type, d1_spain, d2, d2_type, d2_spain, ddi = p.strip().split('\t')
- 		if d1_spain not in e_dict :
+        if d1_spain not in e_dict :
 			e_dict.append(d1_spain)
-		if d2_spain not in e_dict :
+        if d2_spain not in e_dict :
 			e_dict.append(d2_spain)
 
-	for p in pair :		
+    for p in pair :		
 	   	d1, d1_type, d1_spain, d2, d2_type, d2_spain, ddi = p.strip().split('\t')
 		if d1 == d2 :
 			continue;
@@ -118,7 +136,6 @@ for s in train.read().strip().split('\n\n'):
 		fw.write(ddi +'\n')			
 	 	fw.write('\n')
 print 'Number pair', count
-
 	    
 
 

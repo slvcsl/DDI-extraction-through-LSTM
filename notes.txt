@@ -1,0 +1,43 @@
+PROBLEMS ENCONTERED SO FAR:
+    
+    - preprocess1.py
+
+    preprocess2.py supposes the input file is composed of blocks (delimited by \n\n), 
+    containing each sentence (in 1 line) + the parse (like drug present etc).
+    However, some of the sentences are in 2 lines, so that the parsing  
+    fails. These are the sentences that have a first part delimited by [] and the 
+    "real" sentence in the following line.
+    For the moment, I only removed the \n so that the parsing is ok.
+    There are about 5 sentences with this problem. 
+    Only look for "]" in the text file and fix the problem.
+    THINGS TO DO:
+        - The code should be modified to deal with this problem.
+          Maybe simply look for ]\n and change the \n into " "?
+    
+    - main_train_val.py
+    
+    No 95-5% split is done in the code. Files are simply read
+    THINGS TO DO:
+        -  (FIXED) create the files programmatically 
+        - we have 26K sentenced, it's probably not a problem to just choose the 
+          sentences randomly (without caring for the distribution of the classes);
+          however, we should check that. No check is mentioned in the paper.
+    
+    For some reason, the file train95.txt contains as last row only the sentence
+    (without the annotation) and this makes the main crush.
+    For the moment I've just manually removed the last line.
+    THINGS TO DO:
+        - check why this happens, fix
+        
+    There is a problem in the test2 in a sentence in which (dunno why) there is no
+    drugb (practically they assigned N to other drugs, so not sure what happened).
+    I manually removed the sentence ("The objective of this study...") and left 
+    only the first occurrance
+    THINGS TO DO:
+        - check wtfis going on and fix it
+        
+    EMBEDDINGS:
+    - https://github.com/chop-dbhi/drug_word_embeddings
+    - http://bio.nlplab.org/
+    - https://github.com/jakerochlinmarcus/biomedical-word-embeddings
+    

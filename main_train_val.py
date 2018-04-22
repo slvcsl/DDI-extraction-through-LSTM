@@ -38,9 +38,9 @@ batch_size=200
 reg_para = 0.001
 drop_out = 1.0
 
-ftrain = "dataset/ddi/neg_filtered/train_data95.txt"
-fval = "dataset/ddi/neg_filtered/train_data05.txt"
-ftest = "dataset/ddi/neg_filtered/test_data.txt"
+ftrain = "dataset/train/train_data95.txt"
+fval = "dataset/train/train_data05.txt"
+ftest = "dataset/test_data2.txt"
 
 #wefile = "/home/sunil/embeddings/cbow_300d_gvkcorpus.txt"
 wefile = "/home/sunil/embeddings/glove_100d_w9_pubmed.txt"
