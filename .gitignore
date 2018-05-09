@@ -1,2 +1,4 @@
-saved_models
-.spyproject/
+saved_models/*
+.spyproject
+*.pyc
+*.pickle

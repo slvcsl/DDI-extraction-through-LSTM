@@ -131,7 +131,7 @@ class RNN_Relation(object):
 				self.input_y 	:y_batch
 	    			}
    		_, step, loss, accuracy, predictions = self.sess.run([self.train_op, self.global_step, self.loss, self.accuracy, self.predictions], feed_dict)
-    		#print ("step "+str(step) + " loss "+str(loss) +" accuracy "+str(accuracy))
+    		print ("step "+str(step) + " loss "+str(loss) +" accuracy "+str(accuracy))
 		return loss
 
 	def test_step(self, W_batch, Sent_len, d1_batch, d2_batch, t_batch, y_batch):
@@ -146,7 +146,7 @@ class RNN_Relation(object):
 				self.input_y 	:y_batch
 	    			}
     		step, loss, accuracy, predictions = self.sess.run([self.global_step, self.loss, self.accuracy, self.predictions], feed_dict)
-    		#print "Accuracy in test data", accuracy
+    		print "Accuracy in test data", accuracy
 		return predictions, accuracy
 
 	def test_step_alpha(self, W_batch, Sent_len, d1_batch, d2_batch, t_batch, y_batch):

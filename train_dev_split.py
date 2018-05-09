@@ -4,7 +4,7 @@ import numpy as np
 dev_percentage = 0.05 # portion of the data to include in the dev set
 train_percentage = 1-dev_percentage # portion of the data to include in the train ser 
 
-fr = open('dataset/step2/train_data.txt','r')
+fr = open('dataset/step3/train_data.txt','r')
 fval = open('dataset/train/train_data05.txt', 'w')
 ftrain = open('dataset/train/train_data95.txt', 'w')
 

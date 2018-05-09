@@ -13,13 +13,17 @@ import pickle
 import sys
 sys.path.append("source")
 from utils import *
+import datetime
 
 from joint_ablstm import *
 #from rnn_train import *
 #from cnn_train import *
 #from att_rnn import *
 
-embSize = 100
+start = datetime.datetime.now()
+print start
+
+embSize = 420
 d1_emb_size=10
 d2_emb_size=10
 type_emb_size=10
@@ -31,19 +35,19 @@ numfilter = 200
 out_file = 'results/multi_results.txt'
 sent_out = 'results/multi_sents_'
 
-num_epochs = 18
+num_epochs = 2
 #N = 4
-check_point = [4,7,10,13,17]
-batch_size=200
+check_point = [0, 1, 2, 4, 6, 8, 10, 12, 14, 16, 17, 18]
+batch_size = 200
 reg_para = 0.001
 drop_out = 1.0
 
 ftrain = "dataset/train/train_data95.txt"
 fval = "dataset/train/train_data05.txt"
-ftest = "dataset/test_data2.txt"
+ftest = "dataset/test_data3.txt"
 
 #wefile = "/home/sunil/embeddings/cbow_300d_gvkcorpus.txt"
-wefile = "/home/sunil/embeddings/glove_100d_w9_pubmed.txt"
+wefile = "drug.word2vec.model/model_dimension_420.bin"
 
 Tr_sent_contents, Tr_entity1_list, Tr_entity2_list, Tr_sent_lables = dataRead(ftrain)
 Tr_word_list, Tr_d1_list, Tr_d2_list, Tr_type_list = makeFeatures(Tr_sent_contents, Tr_entity1_list, Tr_entity2_list)
@@ -246,6 +250,7 @@ def test_step(W, sent_lengths, d1, d2, T, Y):
 num_batches_per_epoch = int(train_len/batch_size) + 1
 iii = 0		#Check point number
 for epoch in range(num_epochs):	
+	print "\n\nepoch_number: ", epoch
 	shuffle_indices = np.random.permutation(np.arange(train_len))
 	W_tr =  W_train[shuffle_indices]
 	d1_tr = d1_train[shuffle_indices]
@@ -292,8 +297,8 @@ for epoch in range(num_epochs):
 		fscore_test.append( f1_score(y_true_test, y_pred_test, [1,2,3,4], average='micro') )
 		test_res.append([y_true_test, y_pred_test])
 
-	#print 'val',fscore_val
-	#print 'test',fscore_test
+	print 'val-fscore',fscore_val
+	print 'test-fscore',fscore_test
 
 ind = np.argmax(fscore_val)		#Best epoch from validation set
 y_true,y_pred = test_res[ind]		#actual prediction
@@ -359,6 +364,8 @@ fsent.close()
 
 rnn.sess.close()
 
+print start
+print(datetime.datetime.now())
 
 
 

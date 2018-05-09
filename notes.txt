@@ -34,10 +34,27 @@ PROBLEMS ENCONTERED SO FAR:
     I manually removed the sentence ("The objective of this study...") and left 
     only the first occurrance
     THINGS TO DO:
-        - check wtfis going on and fix it
+        - check wtf is going on and fix it
         
     EMBEDDINGS:
     - https://github.com/chop-dbhi/drug_word_embeddings
     - http://bio.nlplab.org/
     - https://github.com/jakerochlinmarcus/biomedical-word-embeddings
-    
+
+
+THINGS TO TRY:
+	The main problems in the model seem to be related to:
+	- very long sentences (https://machinelearningmastery.com/handle-long-sequences-long-short-term-memory-recurrent-neural-networks/)
+	- unbalanced classes
+	So, things we could do are:
+	- Remove the first part of the sententeces if no druga or drug b is present (<- this seems to work!!!)
+	- remove useless words from all sentences
+	- remove empty words or do for very long sentences only
+	- maybe only consider words that are not too distant from the 2 drugs? like only n words before DRUGA and m after DRUGB
+	- oversample / undersample / similar methods for NLP / data augmentation?
+
+	Moreover, other things we could try are:
+	- change the embedding (already done, but maybe try other ones)?
+	- change the number of neurons for layer?
+	- look for other activation functions?
+	- add features for words like pos or similar

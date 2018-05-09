@@ -10,6 +10,8 @@ from nltk.tokenize import WordPunctTokenizer
 tokenizer = WordPunctTokenizer()
 import pickle
 
+from gensim.models import KeyedVectors
+
 def preProcess(sent):
 	sent = sent.lower()
 	sent = sent.replace('/',' ')
@@ -253,10 +255,11 @@ def makeFeatures(sent_list, entity1_list, entity2_list):
     	return word_list, d1_list, d2_list, type_list
 
 def readWordEmb(word_list, fname, embSize=100):
-	print "Reading word vectors"
-	wv = []
-	wl = []
-	with open(fname, 'r') as f:
+    '''
+    print "Reading word vectors"
+    wv = []
+    wl = [] 
+    with open(fname, 'r') as f: 
 		for line in f :			
 			vs = line.split()
 			if len(vs) < embSize :
@@ -264,12 +267,12 @@ def readWordEmb(word_list, fname, embSize=100):
 			vect = map(float, vs[1:])
 			wv.append(vect)
 			wl.append(vs[0])
-	wordemb = []
-	count = 0
-	for word in word_list:
-		if word in wl:
-			wordemb.append(wv[wl.index(word)])
-		else:
+    wordemb = []
+    count = 0
+    for word in word_list:
+        if word in wl:
+            wordemb.append(wv[wl.index(word)])
+        else:
 			count += 1
 			wordemb.append(np.random.rand(embSize))
 			#wordemb.append( np.random.uniform(-np.sqrt(3.0/embSize), np.sqrt(3.0/embSize) , embSize) )
@@ -279,7 +282,44 @@ def readWordEmb(word_list, fname, embSize=100):
 
 	print "number of unknown word in word embedding", count
 	return wordemb
+    '''
 
+    '''
+    the file is probably a dictionary containing the word and the corresponding vector
+    wl contains the word and wv the vector as a float
+    if the words in our wordlist are in the embedding, appennd it
+    otherwise, use a random number
+    '''
+
+    
+    print "Reading word vectors"    
+    f = KeyedVectors.load_word2vec_format(fname, binary=True)
+    #f = KeyedVectors.load_word2vec_format("/home/silvia/Desktop/DDI-extraction-through-LSTM/drug.word2vec.model/model_dimension_420.bin", binary=True)
+
+    count = 0
+    count_k = 0
+    
+    wordemb = []
+
+
+    for i in word_list:
+        try:
+            result = f[i]
+            result = map(float, result)
+            wordemb.append(result)
+            count_k +=1
+
+        except:
+    			count += 1
+    			wordemb.append(np.random.rand(embSize))
+	
+    wordemb[word_list.index('<pad>')] = np.zeros(embSize)
+    wordemb = np.asarray(wordemb, dtype='float32')
+    
+    print "number of known words in word embedding", count_k
+    print "number of unknown words in word embedding", count
+    return wordemb
+    
 def findLongestSent(Tr_word_list, Te_word_list):
 	combine_list = Tr_word_list + Te_word_list
 	a = max([len(sent) for sent in combine_list])

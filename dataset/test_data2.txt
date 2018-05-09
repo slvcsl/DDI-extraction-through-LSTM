@@ -21878,3 +21878,4 @@ When DRUGA is administered with an DRUGN in a woman of childbearing potential , 
 ZETIA	brand	HMG-CoA reductase inhibitor	drug
 false
 
+

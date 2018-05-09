@@ -51,9 +51,7 @@ te_drug = "../Data/Test/Test for DDI Extraction task/DrugBank/"
 
 def readData():
 	tr_data = read([tr_med, tr_drug])
-	te_data = read([te_med, te_drug])
-	
-#	
+	te_data = read([te_med, te_drug])	
 	fw = open('dataset/step1/train_data.txt','w')
 	for sid, stext, pair in tr_data:
 		if len(pair) == 0:
@@ -78,6 +76,28 @@ def readData():
 		fw.write('\n')
 	return tr_data,te_data
 
+def patchNewLine():
+    fr = open('dataset/step1/train_data.txt','rb')
+    data = fr.read().split("\n")
+    last = 'a'
+    last = data[303][-2:]
+    
+    for i,line in enumerate(data):
+        
+        if i < len(data)-1:
+            if (line[-2:] in ["] ", "]\n", "]\n ", "]\n\r", "]\n\r ", "]\r\n", "]\r\n ", "]\r ", "]\r"]):
+                data[i]= data[i][:-1]+ " " + data[i+1]
+                data.pop(i+1)
+    fr.close()
+    fw = open('dataset/step1/train_data.txt','w')
+    fw.write('\n'.join(data))
+    fw.close()
+    
 a,b = readData()
+print "end"
+patchNewLine()
+print "end"
 
- 
+i = 0
+while i < 1000000: 
+    i+=1

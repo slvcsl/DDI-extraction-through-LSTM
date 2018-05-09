@@ -3,28 +3,14 @@ import copy
 from nltk import word_tokenize
 import re
 
-'''
-Remember: this file is a little bit buggy (actually, the previous one is). 
-It suppose the input file is composed of blocks (delimited by \n\n), containing 
-each sentence (in 1 line) + the parse (like drug present etc).
-The problem is actually some of the sentences are in 2 lines, so that the parsing 
-fails. These are the sentences that have a first part delimited by [] and the 
-"real" sentence in the following line.
-For the moment, I only removed the \n so that the parsing is ok.
-There are about 5 sentences with this problem. 
-Only look for "]" in the text file and fix the problem.
-Obvuiously the code (possibly of the previous script) should be modified to deal
-with this problem.
-'''
-
 #train = open('dataset/step1/train_data.txt', 'r')
 #train = open('dataset/step1/tmp.txt', 'r')
 
-#train = open('dataset/step1/train_data.txt','r')
-train =  open('dataset/test_data.txt','r')
+train = open('dataset/step1/train_data.txt','r')
+#train =  open('dataset/test_data.txt','r')
 
-#fw = open('dataset/step2/train_data.txt','w')
-fw = open('dataset/test_data2.txt','w')
+fw = open('dataset/step2/train_data.txt','w')
+#fw = open('dataset/test_data2.txt','w')
 
 def preProcess(sent):
 	sent = sent.replace(',',' ,')
