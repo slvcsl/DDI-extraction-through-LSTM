@@ -2,7 +2,7 @@ PROBLEMS ENCONTERED SO FAR:
     
     - preprocess1.py
 
-    preprocess2.py supposes the input file is composed of blocks (delimited by \n\n), 
+    (patched) preprocess2.py supposes the input file is composed of blocks (delimited by \n\n), 
     containing each sentence (in 1 line) + the parse (like drug present etc).
     However, some of the sentences are in 2 lines, so that the parsing  
     fails. These are the sentences that have a first part delimited by [] and the 

@@ -33,18 +33,18 @@ numfilter = 200
 #sent_out = sys.argv[2]
 
 out_file = 'results/multi_results.txt'
-sent_out = 'results/multi_sents_'
+sent_out = 'results/multi_sents_first_removed_'
 
-num_epochs = 2
+num_epochs = 20
 #N = 4
-check_point = [0, 1, 2, 4, 6, 8, 10, 12, 14, 16, 17, 18]
+check_point = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 batch_size = 200
 reg_para = 0.001
 drop_out = 1.0
 
 ftrain = "dataset/train/train_data95.txt"
 fval = "dataset/train/train_data05.txt"
-ftest = "dataset/test_data3.txt"
+ftest = "dataset/test_data2.txt"
 
 #wefile = "/home/sunil/embeddings/cbow_300d_gvkcorpus.txt"
 wefile = "drug.word2vec.model/model_dimension_420.bin"
@@ -303,6 +303,7 @@ for epoch in range(num_epochs):
 ind = np.argmax(fscore_val)		#Best epoch from validation set
 y_true,y_pred = test_res[ind]		#actual prediction
 
+print('\n Results in Test Set (Best Index) '+str(ind)+'\n')
 fp.write('\n Results in Test Set (Best Index) '+str(ind)+'\n')
 fp.write(str(precision_score(y_true, y_pred,[1,2,3,4], average='micro' )))
 fp.write('\t')
@@ -311,6 +312,8 @@ fp.write('\t')
 fp.write(str(f1_score(y_true, y_pred, [1,2,3,4], average='micro' )))
 fp.write('\t')
 fp.write('\n')
+print str(precision_score(y_true, y_pred,[1,2,3,4], average='micro')) + '\t' + str(recall_score(y_true, y_pred, [1,2,3,4], average='micro' )) + '\t' + str(f1_score(y_true, y_pred, [1,2,3,4], average='micro' )) + '\t\n'
+
 
 fp.write('class 1\t')
 fp.write(str(precision_score(y_true, y_pred,[1], average='micro' )))
@@ -319,7 +322,10 @@ fp.write(str(recall_score(y_true, y_pred, [1], average='micro' )))
 fp.write('\t')
 fp.write(str(f1_score(y_true, y_pred, [1], average='micro' )))
 fp.write('\n')
- 
+
+print 'class 1\t' + str(precision_score(y_true, y_pred,[1], average='micro' )) + '\t' + str(recall_score(y_true, y_pred, [1], average='micro' )) + '\t' + str(f1_score(y_true, y_pred, [1], average='micro' )) + '\n'
+
+
 fp.write('class 2\t')
 fp.write(str(precision_score(y_true, y_pred,[2], average='micro' )))
 fp.write('\t')
@@ -327,6 +333,9 @@ fp.write(str(recall_score(y_true, y_pred, [2], average='micro' )))
 fp.write('\t')
 fp.write(str(f1_score(y_true, y_pred, [2], average='micro' )))
 fp.write('\n')
+
+print 'class 2\t' + str(precision_score(y_true, y_pred,[2], average='micro' )) + '\t' + str(recall_score(y_true, y_pred, [2], average='micro' )) + '\t' + str(f1_score(y_true, y_pred, [2], average='micro' )) + '\n'
+
 
 fp.write('class 3\t')
 fp.write(str(precision_score(y_true, y_pred,[3], average='micro' )))
@@ -336,6 +345,9 @@ fp.write('\t')
 fp.write(str(f1_score(y_true, y_pred, [3], average='micro' )))
 fp.write('\n')
 
+print 'class 3\t' + str(precision_score(y_true, y_pred,[3], average='micro' )) + '\t' + str(recall_score(y_true, y_pred, [3], average='micro' )) + '\t' + str(f1_score(y_true, y_pred, [3], average='micro' )) + '\n'
+
+
 fp.write('class 4\t')
 fp.write(str(precision_score(y_true, y_pred,[4], average='micro' )))
 fp.write('\t')
@@ -344,8 +356,14 @@ fp.write('\t')
 fp.write(str(f1_score(y_true, y_pred, [4], average='micro' )))
 fp.write('\n')
 
+print 'class 4\t' + str(precision_score(y_true, y_pred,[4], average='micro' )) + '\t' + str(recall_score(y_true, y_pred, [4], average='micro' )) + '\t' + str(f1_score(y_true, y_pred, [4], average='micro' )) + '\n'
+
+
 fp.write(str(confusion_matrix(y_true, y_pred)))
 fp.write('\n')
+fp.close()
+
+print str(confusion_matrix(y_true, y_pred)) + '\n'
 
 
 for sent, slen, y_t, y_p in zip(W_test, test_sent_lengths, y_true, y_pred) :

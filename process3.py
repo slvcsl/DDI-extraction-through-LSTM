@@ -20,11 +20,11 @@ with this problem.
 #train = open('dataset/step1/train_data.txt', 'r')
 #train = open('dataset/step1/tmp.txt', 'r')
 
-train = open('dataset/step2/train_data.txt','r')
-#train =  open('dataset/test_data2.txt','r')
+#train = open('dataset/step2/train_data.txt','r')
+train =  open('dataset/test_data2.txt','r')
 
-fw = open('dataset/step3/train_data.txt','w')
-#fw = open('dataset//test_data3.txt','w')
+#fw = open('dataset/step3/train_data.txt','w')
+fw = open('dataset//test_data3.txt','w')
 
 def preProcess(sent):
 	sent = sent.replace(',',' ,')

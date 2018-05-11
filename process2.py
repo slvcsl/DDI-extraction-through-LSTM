@@ -6,11 +6,11 @@ import re
 #train = open('dataset/step1/train_data.txt', 'r')
 #train = open('dataset/step1/tmp.txt', 'r')
 
-train = open('dataset/step1/train_data.txt','r')
-#train =  open('dataset/test_data.txt','r')
+#train = open('dataset/step1/train_data.txt','r')
+train =  open('dataset/test_data.txt','r')
 
-fw = open('dataset/step2/train_data.txt','w')
-#fw = open('dataset/test_data2.txt','w')
+#fw = open('dataset/step2/train_data.txt','w')
+fw = open('dataset/test_data2.txt','w')
 
 def preProcess(sent):
 	sent = sent.replace(',',' ,')
